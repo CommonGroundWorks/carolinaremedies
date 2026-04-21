@@ -167,6 +167,7 @@ test.describe('Cart Modification Before Checkout', () => {
 // Order Confirmation Page
 // ──────────────────────────────────────────────────────────────────────────────
 test.describe('Order Confirmation Page', () => {
+  test.skip(!hasRealDB, 'Requires live Supabase – skipped without real DB credentials')
   test.beforeEach(async ({ page }) => {
     await bypassAge(page)
   })
@@ -254,6 +255,7 @@ test.describe('Order Confirmation Page', () => {
 // Edge Cases
 // ──────────────────────────────────────────────────────────────────────────────
 test.describe('Checkout Edge Cases', () => {
+  test.skip(!hasRealDB, 'Requires live Supabase – skipped without real DB credentials')
   test.beforeEach(async ({ page }) => {
     await bypassAge(page)
   })

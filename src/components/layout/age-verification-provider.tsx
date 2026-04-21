@@ -88,6 +88,7 @@ export function AgeVerificationProvider({ children }: AgeVerificationProviderPro
     if (isOver21) {
       setIsVerified(true)
       setShowAgeGate(false)
+      setIsAccessDenied(false)
       localStorage.setItem('age-verified', 'true')
       localStorage.setItem('age-verification-time', new Date().toISOString())
     }
@@ -120,7 +121,7 @@ export function AgeVerificationProvider({ children }: AgeVerificationProviderPro
 
   return (
     <AgeVerificationContext.Provider value={value}>
-      <AgeGateModal isOpen={showAgeGate} onVerify={verifyAge} onDeny={handleDeny} onReconsider={resetVerification} />
+      <AgeGateModal isOpen={showAgeGate} isAccessDenied={isAccessDenied} onVerify={verifyAge} onDeny={handleDeny} onReconsider={resetVerification} />
       {!isAccessDenied && (
         <>
           <a

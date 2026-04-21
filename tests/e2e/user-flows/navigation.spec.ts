@@ -50,7 +50,7 @@ test.describe('Header Navigation', () => {
       header.getByRole('link', { name: /Carolina Remedies/i })
     ).first()
     await logo.click()
-    await expect(page).toHaveURL(/^\/$|^\/\?/)
+    await expect(page).toHaveURL(/\/$|\/\?/)
   })
 })
 

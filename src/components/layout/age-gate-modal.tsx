@@ -13,56 +13,54 @@
 
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { ShieldAlert } from 'lucide-react'
 
 interface AgeGateModalProps {
   isOpen: boolean
+  isAccessDenied?: boolean
   onVerify: (isOver21: boolean) => void
   onDeny?: () => void
   onReconsider?: () => void
 }
 
-export function AgeGateModal({ isOpen, onVerify, onDeny, onReconsider }: AgeGateModalProps) {
-  const [showAccessDenied, setShowAccessDenied] = useState(false)
+export function AgeGateModal({ isOpen, isAccessDenied = false, onVerify, onDeny, onReconsider }: AgeGateModalProps) {
   const primaryBtnRef = useRef<HTMLButtonElement>(null)
 
   // Single body-scroll lock (no conflict with cart drawer)
   useEffect(() => {
-    const active = isOpen || showAccessDenied
+    const active = isOpen || isAccessDenied
     if (!active) return
     document.body.style.overflow = 'hidden'
     return () => {
       document.body.style.overflow = ''
     }
-  }, [isOpen, showAccessDenied])
+  }, [isOpen, isAccessDenied])
 
   // Move focus into the modal on open
   useEffect(() => {
-    if (isOpen || showAccessDenied) {
+    if (isOpen || isAccessDenied) {
       primaryBtnRef.current?.focus()
     }
-  }, [isOpen, showAccessDenied])
+  }, [isOpen, isAccessDenied])
 
-  if (!isOpen && !showAccessDenied) return null
+  if (!isOpen && !isAccessDenied) return null
 
   const handleVerify = (isOver21: boolean) => {
     if (isOver21) {
       onVerify(true)
     } else {
-      setShowAccessDenied(true)
       onDeny?.()
     }
   }
 
   const handleReconsider = () => {
-    setShowAccessDenied(false)
     onReconsider?.()
   }
 
   // ── Access Denied ───────────────────────────────────────────────────────────
-  if (showAccessDenied) {
+  if (isAccessDenied) {
     return (
       <div
         className="fixed inset-0 z-[100] flex items-center justify-center bg-earth-950/90 backdrop-blur-sm p-4"

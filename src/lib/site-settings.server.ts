@@ -11,9 +11,9 @@ import {
 export async function getSiteSettings() {
   noStore()
 
-  // Skip DB call when Supabase is not configured (local dev without a project)
+  // Skip DB call when Supabase is not configured (local dev without a project or CI placeholder)
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  if (!supabaseUrl || supabaseUrl === 'your-supabase-url') {
+  if (!supabaseUrl || supabaseUrl === 'your-supabase-url' || supabaseUrl.includes('placeholder')) {
     return DEFAULT_SITE_SETTINGS
   }
 
