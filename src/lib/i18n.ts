@@ -46,7 +46,7 @@ export const t = (key: TextKey, variables?: Record<string, any>): string => {
   if (variables) {
     Object.entries(variables).forEach(([varKey, varValue]) => {
       const placeholder = `{${varKey}}`
-      result = result.replace(new RegExp(placeholder, 'g'), String(varValue))
+      result = result.split(placeholder).join(String(varValue))
     })
   }
   

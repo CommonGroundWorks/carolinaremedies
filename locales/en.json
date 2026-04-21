@@ -1,8 +1,18 @@
 {
   "site": {
-    "name": "NCRemedies",
-    "tagline": "Premium Wellness Products",
-    "description": "Your trusted source for quality wellness solutions"
+    "name": "Carolina Remedies",
+    "tagline": "Premium North Carolina Hemp & Wellness",
+    "description": "Your trusted North Carolina source for quality hemp and wellness solutions",
+    "domain": "carolinaremedies.com",
+    "twitterHandle": "@carolinaremedies",
+    "keywords": "wellness, hemp, North Carolina, natural products, health, Carolina Remedies",
+    "author": "Carolina Remedies Team",
+    "serviceName": "carolinaremedies-web"
+  },
+  "contact": {
+    "email": "hello@carolinaremedies.com",
+    "supportEmail": "support@carolinaremedies.com",
+    "privacyEmail": "privacy@carolinaremedies.com"
   },
   "navigation": {
     "home": "Home",

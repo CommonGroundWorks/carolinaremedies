@@ -116,7 +116,7 @@ export class ProductService {
 
       const { data, count, error } = await query
 
-      if (error) throw error
+      if (error) throw new Error(error.message)
 
       const total = count ?? 0
       const products = (data ?? []) as unknown as ProductWithRelations[]
@@ -126,7 +126,7 @@ export class ProductService {
       return { products, total, page, limit, hasMore }
     } catch (error) {
       console.error('Error in getProducts:', error)
-      throw error
+      throw error instanceof Error ? error : new Error(String(error))
     }
   }
 

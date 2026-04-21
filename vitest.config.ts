@@ -34,6 +34,7 @@ export default defineConfig({
     include: [
       'tests/unit/**/*.test.{ts,tsx}',
       'tests/integration/**/*.test.{ts,tsx}',
+      'tests/database/**/*.test.{ts,tsx}',
       'src/**/*.test.{ts,tsx}'
     ]
   },
