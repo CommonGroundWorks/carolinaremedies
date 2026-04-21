@@ -8,6 +8,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
+  timeout: process.env.CI ? 20000 : 30000,
   reporter: process.env.CI ? 'github' : 'html',
   use: {
     baseURL: APP_URL,

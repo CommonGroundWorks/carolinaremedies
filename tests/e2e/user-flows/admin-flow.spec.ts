@@ -5,10 +5,17 @@
 
 import { test, expect } from '@playwright/test'
 
+const hasRealDB = !!(
+  process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')
+)
+
 const ADMIN_EMAIL = 'admin@carolinaremedies.com'
 const ADMIN_PASSWORD = 'Admin@2026!'
 
 test.describe('Admin Authentication & Dashboard', () => {
+  test.skip(!hasRealDB, 'Requires live Supabase – skipped without real DB credentials')
+
   test.beforeEach(async ({ page }) => {
     // Bypass age gate
     await page.addInitScript(() => {

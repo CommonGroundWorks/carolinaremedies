@@ -58,6 +58,13 @@ export class ProductService {
       search
     } = options
 
+    // Return empty result-set when running without real Supabase credentials
+    // (e.g. E2E CI without DB secrets, template demo mode)
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    if (!supabaseUrl || supabaseUrl.includes('placeholder')) {
+      return { products: [], total: 0, page: 1, limit, hasMore: false }
+    }
+
     try {
       // Build query with relations
       let query = supabase

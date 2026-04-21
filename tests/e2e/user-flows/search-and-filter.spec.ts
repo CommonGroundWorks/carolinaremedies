@@ -8,6 +8,11 @@
 import { test, expect, type Page } from '@playwright/test'
 import { ProductsPage } from '../support/pages'
 
+const hasRealDB = !!(
+  process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')
+)
+
 const bypassAge = async (page: Page) => {
   await page.addInitScript(() => {
     localStorage.setItem('age-verified', 'true')
@@ -16,6 +21,8 @@ const bypassAge = async (page: Page) => {
 }
 
 test.describe('Product Search', () => {
+  test.skip(!hasRealDB, 'Requires live Supabase – skipped without real DB credentials')
+
   test.beforeEach(async ({ page }) => {
     await bypassAge(page)
   })
@@ -97,6 +104,8 @@ test.describe('Product Search', () => {
 })
 
 test.describe('Category Filtering', () => {
+  test.skip(!hasRealDB, 'Requires live Supabase – skipped without real DB credentials')
+
   test.beforeEach(async ({ page }) => {
     await bypassAge(page)
   })
@@ -166,6 +175,8 @@ test.describe('Category Filtering', () => {
 })
 
 test.describe('Sorting', () => {
+  test.skip(!hasRealDB, 'Requires live Supabase – skipped without real DB credentials')
+
   test.beforeEach(async ({ page }) => {
     await bypassAge(page)
   })

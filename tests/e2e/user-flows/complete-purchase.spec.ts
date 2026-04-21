@@ -5,6 +5,11 @@
 
 import { test, expect, type Locator, type Page } from '@playwright/test'
 
+const hasRealDB = !!(
+  process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')
+)
+
 const getCartButton = (page: Page) =>
   page.getByRole('button', { name: /Cart/i }).first()
 
@@ -42,6 +47,8 @@ const selectCheckoutState = async (page: Page, stateCode: string) => {
 }
 
 test.describe('Complete Purchase Flow', () => {
+  test.skip(!hasRealDB, 'Requires live Supabase – skipped without real DB credentials')
+
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
       localStorage.setItem('age-verified', 'true')

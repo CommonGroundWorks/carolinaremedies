@@ -5,6 +5,11 @@
 
 import { test, expect, type Locator, type Page } from '@playwright/test'
 
+const hasRealDB = !!(
+  process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')
+)
+
 const expectThcFilterInUrl = (page: Page) =>
   expect(page).toHaveURL(/.*(thcRange|thc)=.*/)
 
@@ -21,6 +26,8 @@ const openProductAt = async (page: Page, index = 0) => {
 }
 
 test.describe('Product Browsing', () => {
+  test.skip(!hasRealDB, 'Requires live Supabase – skipped without real DB credentials')
+
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
       localStorage.setItem('age-verified', 'true')

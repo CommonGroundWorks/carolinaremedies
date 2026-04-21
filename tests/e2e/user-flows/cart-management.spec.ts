@@ -5,7 +5,14 @@
 
 import { test, expect, type Page } from '@playwright/test'
 
+const hasRealDB = !!(
+  process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')
+)
+
 test.describe('Cart Management', () => {
+  test.skip(!hasRealDB, 'Requires live Supabase – skipped without real DB credentials')
+
   const parseCurrency = (value: string | null) =>
     parseFloat(value?.replace(/[^\d.]/g, '') || '0')
 

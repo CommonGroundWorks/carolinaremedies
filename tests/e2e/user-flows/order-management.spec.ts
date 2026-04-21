@@ -10,6 +10,11 @@ import { test, expect, type Page } from '@playwright/test'
 import { ProductsPage, CartPage, CheckoutPage } from '../support/pages'
 import type { CustomerInfo } from '../support/pages'
 
+const hasRealDB = !!(
+  process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')
+)
+
 const bypassAge = async (page: Page) => {
   await page.addInitScript(() => {
     localStorage.setItem('age-verified', 'true')
@@ -48,6 +53,8 @@ const setupMultiProductCheckout = async (page: Page, count = 2) => {
 // Multi-product order
 // ──────────────────────────────────────────────────────────────────────────────
 test.describe('Multi-Product Order Flow', () => {
+  test.skip(!hasRealDB, 'Requires live Supabase – skipped without real DB credentials')
+
   test.beforeEach(async ({ page }) => {
     await bypassAge(page)
   })
@@ -86,6 +93,8 @@ test.describe('Multi-Product Order Flow', () => {
 // Cart modification before checkout
 // ──────────────────────────────────────────────────────────────────────────────
 test.describe('Cart Modification Before Checkout', () => {
+  test.skip(!hasRealDB, 'Requires live Supabase – skipped without real DB credentials')
+
   test.beforeEach(async ({ page }) => {
     await bypassAge(page)
   })
