@@ -15,6 +15,7 @@ jobs:
   e2e-critical:
     name: E2E Critical Suite (Chromium)
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     # Run on PRs and always on main pushes.
     # The app starts without live Supabase; navigation/age-gate tests pass with
     # placeholder credentials. Product-data tests are guarded by the nightly workflow.
@@ -69,6 +70,7 @@ jobs:
   e2e-full:
     name: E2E Full Suite (All Browsers)
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     # Only run on pushes to main — cross-browser is slow
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs: e2e-critical

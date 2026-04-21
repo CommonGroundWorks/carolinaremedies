@@ -86,6 +86,7 @@ export function Header({ className }: HeaderProps) {
             href="/"
             className="flex items-center gap-3 transition-opacity duration-200 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"
             aria-label="Carolina Remedies — Home"
+            data-testid="site-logo"
           >
             <span className="font-display font-light text-xl tracking-tight text-cream-100 -tracking-[0.02em]">
               Carolina Remedies
