@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
 import { createMockProduct } from '../../utils/test-utils'
 
-// Import store after mocking
-vi.doUnmock('@/lib/stores/cart-store')
-const { useCartStore } = await import('@/lib/stores/cart-store')
+// Use the real store implementation
+vi.mock('@/lib/stores/cart-store', async (importOriginal) => importOriginal())
+import { useCartStore } from '@/lib/stores/cart-store'
 
 // Mock localStorage
 const localStorageMock = {
@@ -12,7 +12,7 @@ const localStorageMock = {
   removeItem: vi.fn(),
   clear: vi.fn(),
 }
-Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+Object.defineProperty(window, 'localStorage', { value: localStorageMock, configurable: true, writable: true })
 
 describe('Cart Store', () => {
   beforeEach(() => {
