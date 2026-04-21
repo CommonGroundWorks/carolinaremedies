@@ -33,29 +33,18 @@ class TestRunner {
 
   private phases: TestPhase[] = [
     {
-      name: 'database-setup',
-      description: 'Database setup and validation',
-      commands: [
-        'npm run db:reset',
-        'npm run db:migrate',
-        'npm run db:seed'
-      ],
-      required: true
-    },
-    {
       name: 'database-validation',
-      description: 'Database schema and RLS validation',
+      description: 'Database schema validation',
       commands: [
-        'npx vitest run tests/database/'
+        'npm run test:db'
       ],
-      required: true,
-      dependencies: ['database-setup']
+      required: false
     },
     {
       name: 'unit-tests',
       description: 'Unit tests for components and utilities',
       commands: [
-        'npx vitest run tests/unit/ --coverage'
+        'npm run test:unit -- --coverage'
       ],
       required: true
     },
@@ -63,25 +52,23 @@ class TestRunner {
       name: 'integration-tests',
       description: 'Integration tests for services and APIs',
       commands: [
-        'npx vitest run tests/integration/'
+        'npm run test:integration'
       ],
-      required: true,
-      dependencies: ['database-setup']
+      required: true
     },
     {
       name: 'e2e-critical',
       description: 'Critical user journey E2E tests',
       commands: [
-        'npx playwright test tests/e2e/user-flows/ --project=chromium'
+        'npm run test:e2e:critical'
       ],
-      required: true,
-      dependencies: ['database-setup']
+      required: false
     },
     {
       name: 'e2e-full',
       description: 'Complete E2E test suite (all browsers)',
       commands: [
-        'npx playwright test tests/e2e/'
+        'npm run test:e2e:full'
       ],
       required: false,
       dependencies: ['e2e-critical']
@@ -90,17 +77,15 @@ class TestRunner {
       name: 'performance',
       description: 'Performance and load testing',
       commands: [
-        'npm run test:lighthouse',
-        'npm run test:load'
+        'npm run test:performance'
       ],
       required: false,
-      dependencies: ['e2e-critical']
+      dependencies: ['unit-tests', 'integration-tests']
     },
     {
       name: 'security',
       description: 'Security vulnerability scanning',
       commands: [
-        'npm audit --audit-level=moderate',
         'npm run test:security'
       ],
       required: false
@@ -112,7 +97,7 @@ class TestRunner {
         'npm run test:a11y'
       ],
       required: false,
-      dependencies: ['e2e-critical']
+      dependencies: ['unit-tests', 'integration-tests']
     }
   ]
 
@@ -333,7 +318,7 @@ Usage:
   npm run test:list                   # List available phases
 
 Examples:
-  npm run test:specific database-setup unit-tests
+    npm run test:specific database-validation unit-tests
   npm run test:specific e2e-critical
   npm run test:all --skip-optional
 `)

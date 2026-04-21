@@ -144,6 +144,6 @@ describe('ProductCard storefront mode', () => {
       </StorefrontProvider>
     )
 
-    expect(screen.getByTestId('quick-add-to-cart')).toBeInTheDocument()
+    expect(screen.getAllByTestId('quick-add-to-cart')).toHaveLength(2)
   })
 })
