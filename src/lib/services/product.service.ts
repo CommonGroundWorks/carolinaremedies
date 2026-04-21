@@ -59,9 +59,10 @@ export class ProductService {
     } = options
 
     // Return empty result-set when running without real Supabase credentials
-    // (e.g. E2E CI without DB secrets, template demo mode)
+    // (e.g. E2E CI without DB secrets, template demo mode).
+    // Skip this guard in test environments where Supabase is fully mocked.
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    if (!supabaseUrl || supabaseUrl.includes('placeholder')) {
+    if (!process.env.VITEST && (!supabaseUrl || supabaseUrl.includes('placeholder'))) {
       return { products: [], total: 0, page: 1, limit, hasMore: false }
     }
 
@@ -158,12 +159,12 @@ export class ProductService {
       const { data, error } = await query.single()
 
       if (error && error.code === 'PGRST116') return null // not found
-      if (error) throw error
+      if (error) throw new Error(error.message)
 
       return data as unknown as ProductWithRelations
     } catch (error) {
       console.error('Error in getProduct:', error)
-      throw error
+      throw error instanceof Error ? error : new Error(String(error))
     }
   }
 
