@@ -1,0 +1,7 @@
+export { BasePage } from './base.page'
+export { HomePage } from './home.page'
+export { ProductsPage } from './products.page'
+export { CartPage } from './cart.page'
+export { CheckoutPage } from './checkout.page'
+export type { CustomerInfo } from './checkout.page'
+export { AdminPage } from './admin.page'

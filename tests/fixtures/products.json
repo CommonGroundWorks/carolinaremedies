@@ -1,0 +1,228 @@
+[
+  {
+    "id": "1",
+    "name": "Blue Dream",
+    "slug": "blue-dream",
+    "description": "A classic sativa-dominant hybrid strain known for its balanced effects and sweet berry aroma. Perfect for daytime use with gentle relaxation and mental clarity.",
+    "price": 45.00,
+    "category": "flower",
+    "image": "/images/products/blue-dream.jpg",
+    "inStock": true,
+    "quantity": 25,
+    "variants": [
+      {
+        "id": "v1",
+        "name": "1/8 oz (3.5g)",
+        "price": 45.00,
+        "weight": "3.5g"
+      },
+      {
+        "id": "v2", 
+        "name": "1/4 oz (7g)",
+        "price": 80.00,
+        "weight": "7g"
+      },
+      {
+        "id": "v3",
+        "name": "1/2 oz (14g)", 
+        "price": 150.00,
+        "weight": "14g"
+      }
+    ],
+    "lab_results": {
+      "tested_date": "2024-01-15",
+      "lab_name": "Cannabis Testing Lab",
+      "batch_id": "BD-2024-001",
+      "results": {
+        "thc": 18.5,
+        "cbd": 0.8,
+        "cbn": 0.3,
+        "terpenes": {
+          "myrcene": 0.6,
+          "limonene": 0.4,
+          "pinene": 0.3
+        }
+      }
+    },
+    "thc_percentage": 18.5,
+    "cbd_percentage": 0.8,
+    "effects": ["euphoric", "relaxing", "creative", "happy"],
+    "strain_type": "hybrid",
+    "genetics": "Blueberry x Haze",
+    "flowering_time": "9-10 weeks",
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-15T12:00:00Z"
+  },
+  {
+    "id": "2",
+    "name": "Premium CBD Tincture",
+    "slug": "premium-cbd-tincture",
+    "description": "High-quality, full-spectrum CBD tincture made from organically grown hemp. Perfect for daily wellness routines with precise dosing.",
+    "price": 29.99,
+    "category": "tinctures",
+    "image": "/images/products/cbd-tincture.jpg",
+    "inStock": true,
+    "quantity": 50,
+    "variants": [
+      {
+        "id": "t1",
+        "name": "500mg",
+        "price": 29.99,
+        "concentration": "500mg"
+      },
+      {
+        "id": "t2",
+        "name": "1000mg",
+        "price": 49.99,
+        "concentration": "1000mg"
+      },
+      {
+        "id": "t3",
+        "name": "2000mg",
+        "price": 89.99,
+        "concentration": "2000mg"
+      }
+    ],
+    "lab_results": {
+      "tested_date": "2024-01-10",
+      "lab_name": "Hemp Testing Facility",
+      "batch_id": "CBD-2024-002",
+      "results": {
+        "cbd": 25.0,
+        "thc": 0.3,
+        "cbn": 0.1,
+        "heavy_metals": "Pass",
+        "pesticides": "Pass",
+        "residual_solvents": "Pass"
+      }
+    },
+    "thc_percentage": 0.3,
+    "cbd_percentage": 25.0,
+    "effects": ["calming", "focus", "pain-relief"],
+    "strain_type": "hemp",
+    "extraction_method": "CO2",
+    "carrier_oil": "MCT Oil",
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-10T09:00:00Z"
+  },
+  {
+    "id": "3",
+    "name": "Mixed Berry Gummies",
+    "slug": "mixed-berry-gummies",
+    "description": "Delicious mixed berry gummies infused with premium cannabis extract. Each gummy contains 10mg THC for consistent dosing.",
+    "price": 15.99,
+    "category": "edibles",
+    "image": "/images/products/berry-gummies.jpg",
+    "inStock": true,
+    "quantity": 75,
+    "variants": [
+      {
+        "id": "g1",
+        "name": "10 pack (100mg total)",
+        "price": 15.99,
+        "count": 10,
+        "mg_per_piece": 10
+      },
+      {
+        "id": "g2",
+        "name": "20 pack (200mg total)",
+        "price": 29.99,
+        "count": 20,
+        "mg_per_piece": 10
+      }
+    ],
+    "lab_results": {
+      "tested_date": "2024-01-12",
+      "lab_name": "Edibles Testing Lab",
+      "batch_id": "GUM-2024-003",
+      "results": {
+        "thc": 10.0,
+        "cbd": 0.0,
+        "homogeneity": "Pass",
+        "microbials": "Pass",
+        "heavy_metals": "Pass"
+      }
+    },
+    "thc_percentage": 10.0,
+    "cbd_percentage": 0.0,
+    "effects": ["euphoric", "relaxing", "happy"],
+    "onset_time": "30-90 minutes",
+    "duration": "4-8 hours",
+    "ingredients": ["Organic cane sugar", "Gelatin", "Natural flavors", "Cannabis extract"],
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-12T14:00:00Z"
+  },
+  {
+    "id": "4",
+    "name": "Granddaddy Purple",
+    "slug": "granddaddy-purple",
+    "description": "A famous indica strain known for its grape and berry aroma. Delivers deep relaxation and is perfect for evening use.",
+    "price": 50.00,
+    "category": "flower",
+    "image": "/images/products/granddaddy-purple.jpg",
+    "inStock": true,
+    "quantity": 15,
+    "variants": [
+      {
+        "id": "gdp1",
+        "name": "1/8 oz (3.5g)",
+        "price": 50.00,
+        "weight": "3.5g"
+      },
+      {
+        "id": "gdp2",
+        "name": "1/4 oz (7g)",
+        "price": 90.00,
+        "weight": "7g"
+      }
+    ],
+    "lab_results": {
+      "tested_date": "2024-01-14",
+      "lab_name": "Cannabis Testing Lab",
+      "batch_id": "GDP-2024-004",
+      "results": {
+        "thc": 20.2,
+        "cbd": 0.4,
+        "cbn": 1.2,
+        "terpenes": {
+          "myrcene": 1.2,
+          "linalool": 0.5,
+          "caryophyllene": 0.4
+        }
+      }
+    },
+    "thc_percentage": 20.2,
+    "cbd_percentage": 0.4,
+    "effects": ["relaxing", "sleepy", "euphoric", "pain-relief"],
+    "strain_type": "indica",
+    "genetics": "Purple Urkle x Big Bud",
+    "flowering_time": "8-11 weeks",
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-14T16:00:00Z"
+  },
+  {
+    "id": "5",
+    "name": "Ceramic Vaporizer",
+    "slug": "ceramic-vaporizer",
+    "description": "Premium ceramic vaporizer with precise temperature control. Perfect for dry herb consumption with optimal flavor preservation.",
+    "price": 149.99,
+    "category": "accessories",
+    "image": "/images/products/ceramic-vaporizer.jpg",
+    "inStock": true,
+    "quantity": 20,
+    "variants": [],
+    "lab_results": null,
+    "thc_percentage": 0,
+    "cbd_percentage": 0,
+    "effects": [],
+    "features": [
+      "Ceramic heating chamber",
+      "Digital temperature display", 
+      "USB-C charging",
+      "3-hour battery life",
+      "6-month warranty"
+    ],
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-05T10:00:00Z"
+  }
+]

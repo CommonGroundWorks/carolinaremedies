@@ -1,0 +1,222 @@
+{
+  "site": {
+    "name": "NCRemedies",
+    "tagline": "Premium Wellness Products",
+    "description": "Your trusted source for quality wellness solutions"
+  },
+  "navigation": {
+    "home": "Home",
+    "shop": "Shop All",
+    "categories": "Categories",
+    "about": "Our Story",
+    "lab": "Lab Results",
+    "education": "Learn",
+    "contact": "Contact",
+    "account": "Account",
+    "cart": "Cart",
+    "admin": "Admin"
+  },
+  "products": {
+    "categories": {
+      "flower": "Premium Flower",
+      "edibles": "Wellness Edibles",
+      "topicals": "Therapeutic Topicals",
+      "tinctures": "Liquid Extracts",
+      "accessories": "Accessories",
+      "bundles": "Value Bundles"
+    },
+    "labels": {
+      "addToCart": "Add to Cart",
+      "quickView": "Quick View",
+      "viewDetails": "View Details",
+      "outOfStock": "Currently Unavailable",
+      "inStock": "In Stock",
+      "lowStock": "Limited Stock",
+      "labTested": "Third-Party Tested",
+      "organic": "Certified Organic",
+      "newArrival": "New Arrival",
+      "bestseller": "Best Seller",
+      "featured": "Featured",
+      "price": "Price",
+      "quantity": "Quantity",
+      "sku": "Product Code",
+      "category": "Category",
+      "brand": "Brand"
+    },
+    "filters": {
+      "all": "All Products",
+      "sortBy": "Sort By",
+      "priceRange": "Price Range",
+      "availability": "Availability",
+      "brand": "Brand",
+      "effects": "Effects",
+      "potency": "Potency"
+    },
+    "sort": {
+      "featured": "Featured",
+      "newest": "Newest First",
+      "priceAsc": "Price: Low to High",
+      "priceDesc": "Price: High to Low",
+      "nameAsc": "Name: A to Z",
+      "nameDesc": "Name: Z to A",
+      "rating": "Customer Rating"
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "emptyDescription": "Start shopping to add items to your cart",
+    "continueShopping": "Continue Shopping",
+    "proceedToCheckout": "Proceed to Checkout",
+    "updateCart": "Update Cart",
+    "removeItem": "Remove Item",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "tax": "Tax",
+    "total": "Total",
+    "estimatedTotal": "Estimated Total",
+    "itemCount": "{count} item",
+    "itemCountPlural": "{count} items"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "steps": {
+      "shipping": "Shipping Information",
+      "payment": "Payment Method",
+      "review": "Review Order"
+    },
+    "shipping": {
+      "address": "Shipping Address",
+      "method": "Shipping Method",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "company": "Company (Optional)",
+      "address1": "Street Address",
+      "address2": "Apartment, Suite, etc. (Optional)",
+      "city": "City",
+      "state": "State",
+      "zip": "ZIP Code",
+      "phone": "Phone Number",
+      "email": "Email Address"
+    },
+    "payment": {
+      "method": "Payment Method",
+      "cod": "Cash on Delivery",
+      "codDescription": "Pay when your order arrives",
+      "codFee": "Delivery fee: ${fee}",
+      "creditCard": "Credit Card",
+      "creditCardDescription": "Secure online payment",
+      "paypal": "PayPal",
+      "paypalDescription": "Pay with your PayPal account"
+    },
+    "review": {
+      "orderSummary": "Order Summary",
+      "shippingAddress": "Shipping Address",
+      "paymentMethod": "Payment Method",
+      "estimatedDelivery": "Estimated Delivery",
+      "placeOrder": "Place Order",
+      "processing": "Processing Order...",
+      "terms": "I agree to the Terms of Service and Privacy Policy"
+    }
+  },
+  "account": {
+    "title": "My Account",
+    "login": "Sign In",
+    "register": "Create Account",
+    "logout": "Sign Out",
+    "profile": "Profile",
+    "orders": "Order History",
+    "addresses": "Addresses",
+    "settings": "Settings",
+    "dashboard": "Dashboard"
+  },
+  "orders": {
+    "title": "Order History",
+    "empty": "No orders yet",
+    "emptyDescription": "Your order history will appear here",
+    "orderNumber": "Order #{number}",
+    "orderDate": "Ordered on {date}",
+    "orderStatus": "Status",
+    "orderTotal": "Total",
+    "viewOrder": "View Details",
+    "trackOrder": "Track Order",
+    "reorder": "Order Again"
+  },
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "products": "Product Management",
+    "inventory": "Inventory",
+    "orders": "Order Management",
+    "customers": "Customers",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "addProduct": "Add Product",
+    "editProduct": "Edit Product",
+    "deleteProduct": "Delete Product",
+    "addStock": "Add Stock",
+    "removeStock": "Remove Stock",
+    "lowStockAlert": "Low Stock Alert",
+    "outOfStockAlert": "Out of Stock Alert"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try Again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "update": "Update",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "search": "Search",
+    "searchPlaceholder": "Search products...",
+    "noResults": "No results found",
+    "showMore": "Show More",
+    "showLess": "Show Less",
+    "viewAll": "View All",
+    "backToTop": "Back to Top"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "phone": "Please enter a valid phone number",
+    "minLength": "Must be at least {min} characters",
+    "maxLength": "Must be no more than {max} characters",
+    "invalidFormat": "Invalid format",
+    "passwordMismatch": "Passwords do not match",
+    "invalidQuantity": "Please enter a valid quantity",
+    "maxQuantity": "Maximum quantity is {max}",
+    "minQuantity": "Minimum quantity is {min}"
+  },
+  "messages": {
+    "addedToCart": "Added to cart successfully",
+    "removedFromCart": "Removed from cart",
+    "orderPlaced": "Order placed successfully",
+    "orderCancelled": "Order cancelled",
+    "profileUpdated": "Profile updated successfully",
+    "addressAdded": "Address added successfully",
+    "addressUpdated": "Address updated successfully",
+    "addressDeleted": "Address deleted successfully"
+  },
+  "compliance": {
+    "ageVerification": {
+      "title": "Age Verification Required",
+      "message": "You must be 21 or older to access this site",
+      "birthDate": "Enter your birth date",
+      "verify": "Verify Age",
+      "restricted": "Access Restricted",
+      "restrictedMessage": "You must be 21 or older to access this site"
+    },
+    "disclaimers": {
+      "fda": "Products have not been evaluated by the FDA",
+      "medical": "This product is not for use by minors, pregnant or nursing women",
+      "safety": "Keep out of reach of children and pets",
+      "thc": "All products contain less than 0.3% THC as required by federal law",
+      "lab": "Lab testing certificates available upon request"
+    }
+  }
+}
