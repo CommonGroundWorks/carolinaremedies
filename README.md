@@ -89,7 +89,7 @@ cp .env.example .env         # docker / self-hosted
 | `NEXT_PUBLIC_SUPABASE_URL` | **Yes** | `https://abcdefgh.supabase.co` | Supabase project URL. Found in **Project Settings → API**. |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | **Yes** | `eyJhbGci...` (long JWT) | Supabase public anon key. Safe to expose in the browser — Row Level Security enforces access. |
 | `SUPABASE_SERVICE_ROLE_KEY` | **Yes** | `eyJhbGci...` (different JWT) | Service role key. **Never expose** to the browser. Used only in server-side scripts (seed importer). |
-| `NEXT_PUBLIC_APP_URL` | **Yes** | `https://your-domain.com` | Canonical public URL. Used for Open Graph and absolute URL generation. |
+| `NEXT_PUBLIC_APP_URL` | **Yes** | `https://your-domain.com` | Canonical public URL. Used for Open Graph, absolute URL generation, and server action CORS allowlist. |
 | `NEXT_PUBLIC_APP_NAME` | No | `CarolinaRemedies` | Display name used in meta tags. |
 | `PORT` | No | `7000` | HTTP port for the Node server (default `7000`). |
 | `HOST` | No | `0.0.0.0` | Bind address. Use `0.0.0.0` inside Docker. |
@@ -402,16 +402,11 @@ vercel --prod
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "installCommand": "npm install",
-  "env": {
-    "NEXT_PUBLIC_SUPABASE_URL": "@supabase-url",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase-anon-key",
-    "SUPABASE_SERVICE_ROLE_KEY": "@supabase-service-role-key"
-  }
+  "installCommand": "npm install"
 }
 ```
 
-The `@variable-name` syntax references [Vercel environment secrets](https://vercel.com/docs/environment-variables). You can also skip `vercel.json` and set everything via the dashboard; `vercel.json` just provides a reproducible baseline.
+Environment variables are set separately via `vercel env add` (shown above) or the Vercel Dashboard → **Settings → Environment Variables**. The `@variable-name` syntax for referencing Vercel Secrets is optional; plain values added through the dashboard or CLI work identically.
 
 ### Custom Domain
 
