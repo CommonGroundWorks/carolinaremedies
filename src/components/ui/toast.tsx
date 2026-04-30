@@ -49,9 +49,6 @@ function ToastItem({
 
   return (
     <div
-      role="status"
-      aria-live="polite"
-      aria-atomic="true"
       data-testid="cart-notification"
       className={cn(
         'flex items-start gap-3 w-full max-w-sm px-4 py-3 border shadow-lg',

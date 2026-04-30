@@ -5,12 +5,23 @@
 
 import { create } from 'zustand'
 
-const syncBodyScroll = (state: Pick<UIState, 'isMobileMenuOpen' | 'isQuickViewOpen'>) => {
-  if (typeof document === 'undefined' || !document.body) {
-    return
-  }
+// ── Reference-counted body scroll lock ───────────────────────────────────────
+// Prevents race conditions when multiple overlays (cart, age gate, mobile menu)
+// independently lock/unlock scroll. The last overlay to close re-enables scroll.
+let _scrollLockCount = 0
 
-  document.body.style.overflow = state.isMobileMenuOpen || state.isQuickViewOpen ? 'hidden' : ''
+export function lockBodyScroll(): void {
+  if (typeof document === 'undefined') return
+  _scrollLockCount++
+  document.body.style.overflow = 'hidden'
+}
+
+export function unlockBodyScroll(): void {
+  if (typeof document === 'undefined') return
+  _scrollLockCount = Math.max(0, _scrollLockCount - 1)
+  if (_scrollLockCount === 0) {
+    document.body.style.overflow = ''
+  }
 }
 
 export interface UIState {
@@ -81,11 +92,12 @@ export const useUIStore = create<UIState>((set, get) => ({
 
   // Mobile menu actions
   setMobileMenuOpen: (open: boolean) => {
-    set((state) => {
-      const nextState = { ...state, isMobileMenuOpen: open }
-      syncBodyScroll(nextState)
-      return { isMobileMenuOpen: open }
-    })
+    set({ isMobileMenuOpen: open })
+    if (open) {
+      lockBodyScroll()
+    } else {
+      unlockBodyScroll()
+    }
   },
   
   toggleMobileMenu: () => {
@@ -123,33 +135,13 @@ export const useUIStore = create<UIState>((set, get) => ({
 
   // Quick view actions
   openQuickView: (productId: string) => {
-    set((state) => {
-      const nextState = {
-        ...state,
-        isQuickViewOpen: true,
-        quickViewProductId: productId
-      }
-      syncBodyScroll(nextState)
-      return {
-        isQuickViewOpen: true,
-        quickViewProductId: productId
-      }
-    })
+    set({ isQuickViewOpen: true, quickViewProductId: productId })
+    lockBodyScroll()
   },
-  
+
   closeQuickView: () => {
-    set((state) => {
-      const nextState = {
-        ...state,
-        isQuickViewOpen: false,
-        quickViewProductId: null
-      }
-      syncBodyScroll(nextState)
-      return {
-        isQuickViewOpen: false,
-        quickViewProductId: null
-      }
-    })
+    set({ isQuickViewOpen: false, quickViewProductId: null })
+    unlockBodyScroll()
   },
 
   // Loading state actions

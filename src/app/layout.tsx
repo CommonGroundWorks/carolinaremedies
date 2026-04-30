@@ -147,6 +147,10 @@ export default async function RootLayout({
         <StorefrontProvider initialSettings={siteSettings}>
           <AgeVerificationProvider>
             <div id="app-root" className="min-h-screen flex flex-col">
+              {/* Skip link — must be the FIRST focusable element in <body> */}
+              <a href="#main-content" className="skip-link">
+                Skip to main content
+              </a>
               <DemoBanner />
               <Header />
               <main

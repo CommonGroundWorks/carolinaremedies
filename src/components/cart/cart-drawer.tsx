@@ -21,7 +21,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useStorefront } from '@/components/layout/storefront-provider'
 import { Button } from '@/components/ui/button'
-import { useCartStore } from '@/lib/stores'
+import { useCartStore, lockBodyScroll, unlockBodyScroll, type CartItem } from '@/lib/stores'
 import { formatCurrency, cn } from '@/lib/utils'
 import { X, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react'
 
@@ -51,17 +51,17 @@ export function CartDrawer({ className }: CartDrawerProps) {
     }
   }, [shoppingEnabled, isOpen, closeCart])
 
-  // ── Body scroll lock ───────────────────────────────────────────────────────
+  // ── Body scroll lock (shared counter — safe alongside age gate) ───────────
   React.useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden'
+      lockBodyScroll()
       // Move focus into the drawer
       closeBtnRef.current?.focus()
     } else {
-      document.body.style.overflow = ''
+      unlockBodyScroll()
     }
     return () => {
-      document.body.style.overflow = ''
+      unlockBodyScroll()
     }
   }, [isOpen])
 
@@ -295,7 +295,7 @@ export function CartDrawer({ className }: CartDrawerProps) {
 
 // ── Individual Cart Item ──────────────────────────────────────────────────────
 interface CartItemProps {
-  item: any
+  item: CartItem
   onUpdateQuantity: (itemId: string, quantity: number) => void
   onRemove: (itemId: string) => void
 }

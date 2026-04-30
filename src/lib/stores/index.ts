@@ -22,6 +22,8 @@ export {
   useQuickView,
   useNotifications,
   useLoading,
+  lockBodyScroll,
+  unlockBodyScroll,
   type UIState,
   type Notification
 } from './ui-store'

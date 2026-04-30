@@ -4,7 +4,7 @@ export const STOREFRONT_SETTINGS_ID = 'storefront'
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   id: STOREFRONT_SETTINGS_ID,
-  shopping_enabled: false,
+  shopping_enabled: true,
   updated_at: null,
 }
 

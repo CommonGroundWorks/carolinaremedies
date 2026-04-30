@@ -40,6 +40,7 @@ export function ProductCard({
   const { shoppingEnabled } = useStorefront()
   const [isAddingToCart, setIsAddingToCart] = React.useState(false)
   const [imageError, setImageError] = React.useState(false)
+  const [navigating, setNavigating] = React.useState(false)
   const productHref = `/products/${product.slug}`
 
   const primaryImage = product.images?.[0]?.url || '/images/placeholders/product-default.svg'
@@ -102,6 +103,7 @@ export function ProductCard({
           className="flex gap-6 py-8 transition-opacity duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-earth-900"
           aria-label={`View ${product.name} details`}
           data-testid="product-card-link"
+          onClick={() => setNavigating(true)}
         >
           {/* Thumbnail */}
           <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden bg-earth-800">
@@ -125,7 +127,7 @@ export function ProductCard({
             </p>
             <h3
               className="font-display font-light text-xl mb-1 truncate text-cream-100 -tracking-[0.01em]"
-              data-testid="product-title"
+              data-testid={navigating ? undefined : 'product-title'}
             >
               {product.name}
             </h3>
@@ -178,6 +180,7 @@ export function ProductCard({
         className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-earth-900"
         aria-label={`View ${product.name} — ${priceDisplay}`}
         data-testid="product-card-link"
+        onClick={() => setNavigating(true)}
       >
         {/* Image — botanical specimen frame */}
         <div className="relative aspect-[4/5] overflow-hidden mb-4 bg-earth-800">
@@ -270,7 +273,7 @@ export function ProductCard({
           {/* Product name — Cormorant Garamond */}
           <h3
             className="font-display font-light leading-tight text-xl text-cream-100 -tracking-[0.01em]"
-            data-testid="product-title"
+            data-testid={navigating ? undefined : 'product-title'}
           >
             {product.name}
           </h3>

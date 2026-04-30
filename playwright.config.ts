@@ -1,4 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
+import { loadEnvConfig } from '@next/env'
+
+loadEnvConfig(process.cwd())
 
 const APP_URL = 'http://localhost:7000'
 

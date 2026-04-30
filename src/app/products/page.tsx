@@ -1,3 +1,17 @@
+/**
+ * Products Page
+ *
+ * UX/A11y fixes applied:
+ * - Search input uses focus-visible (no bare focus:outline-none)
+ * - h1 has correct text-size and color classes
+ * - transition-all replaced with transition-colors on all pills/buttons
+ * - THC filter label converted to a proper <span> with role="group" wrapper
+ * - Sort buttons have aria-current="true" for the active option
+ * - Category pills have aria-current="page" for the active category
+ * - "Apply" button removed (range links navigate immediately; was broken)
+ * - "No specimens found" conditional — only shows when products.length === 0
+ */
+
 import { Suspense } from 'react'
 import { ProductGrid } from '@/components/product/product-grid'
 import { getActiveCategories } from '@/lib/categories'
@@ -35,46 +49,37 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       undefined,
   }).catch(() => ({ products: [], total: 0, page: 1, limit: 20, hasMore: false }))
 
+  const hasNoResults = search && initialProductsResult.products.length === 0
+
   return (
-    <div
-      className="min-h-screen bg-earth-900"
+    <div className="min-h-screen bg-earth-900">
 
-    >
       {/* Page header */}
-      <div
-        className="border-b border-cream-300/[0.08]"
-
-      >
+      <div className="border-b border-cream-300/[0.08]">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
           {/* Eyebrow */}
-          <p
-            className="text-xs tracking-[0.2em] uppercase mb-4 text-secondary-400 font-sans"
-          >
+          <p className="text-xs tracking-[0.2em] uppercase mb-4 text-secondary-400 font-sans">
             {search ? 'Search Results' : 'The Collection'}
           </p>
 
-          {/* Heading */}
+          {/* Heading — text-display-md for visual hierarchy parity with other page h1s */}
           <h1
-            className="font-display font-light mb-8"
+            className="font-display font-light text-display-md text-cream-100 -tracking-[0.02em] mb-8"
             data-testid="category-title"
-
           >
             {search
-              ? <>Results for <em className="italic text-display-md text-cream-100 -tracking-[0.02em] font-display">&ldquo;{search}&rdquo;</em></>
+              ? <><span className="sr-only">Results for </span><em className="not-italic">&ldquo;{search}&rdquo;</em></>
               : activeCategory
                 ? activeCategory.name
                 : 'All Products'
             }
           </h1>
 
-          {/* Category filter pills — refined */}
-          <nav
-            aria-label="Filter by category"
-            className="flex flex-wrap gap-2"
-          >
+          {/* Category filter pills */}
+          <nav aria-label="Filter by category" className="flex flex-wrap gap-2">
             <Link
               href="/products"
-              className="px-4 py-1.5 text-xs tracking-wider uppercase transition-all duration-200"
+              className="px-4 py-1.5 text-xs tracking-wider uppercase transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"
               style={!category ? {
                 background: 'var(--sage-500)',
                 color: 'var(--cream-100)',
@@ -82,6 +87,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                 border: '1px solid rgba(216,204,175,0.12)',
                 color: 'var(--cream-400)',
               }}
+              aria-current={!category ? 'page' : undefined}
             >
               All
             </Link>
@@ -92,7 +98,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                   key={cat.id}
                   href={`/products?category=${cat.slug}`}
                   data-testid={`category-${cat.slug}`}
-                  className="px-4 py-1.5 text-xs tracking-wider uppercase transition-all duration-200 hover:opacity-80"
+                  className="px-4 py-1.5 text-xs tracking-wider uppercase transition-colors duration-200 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"
                   style={isActive ? {
                     background: 'var(--sage-500)',
                     color: 'var(--cream-100)',
@@ -100,6 +106,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     border: '1px solid rgba(216,204,175,0.12)',
                     color: 'var(--cream-400)',
                   }}
+                  aria-current={isActive ? 'page' : undefined}
                 >
                   {cat.name}
                 </Link>
@@ -109,11 +116,8 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         </div>
       </div>
 
-      {/* Search bar + sort — minimal */}
-      <div
-        className="border-b border-cream-300/[0.06]"
-
-      >
+      {/* Search bar + sort */}
+      <div className="border-b border-cream-300/[0.06]">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-4 flex flex-col gap-4">
           <form method="GET" className="flex items-center gap-2" role="search">
             <label htmlFor="product-search" className="sr-only">Search products</label>
@@ -123,21 +127,21 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
               name="search"
               placeholder="Search specimens…"
               defaultValue={search}
-              className="w-56 px-3 py-1.5 text-sm focus:outline-none bg-cream-300/5 border border-cream-300/[0.12] text-cream-200 font-sans"
+              className="w-56 px-3 py-1.5 text-sm bg-cream-300/5 border border-cream-300/[0.12] text-cream-200 font-sans focus-visible:outline-none focus-visible:border-secondary-400 focus-visible:ring-1 focus-visible:ring-secondary-400"
               data-testid="product-search"
             />
             {category && <input type="hidden" name="category" value={category} />}
             <button
               type="submit"
-              className="px-3 py-1.5 text-xs tracking-widest uppercase transition-opacity duration-200 hover:opacity-70 border border-cream-300/[0.12] text-cream-400"
+              className="px-3 py-1.5 text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-70 border border-cream-300/[0.12] text-cream-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"
             >
               Search
             </button>
           </form>
 
-          {/* Sort — link-based navigation */}
+          {/* Sort — link-based, with aria-current */}
           <div className="flex items-center gap-3" data-testid="sort-dropdown">
-            <span className="text-xs uppercase tracking-widest text-cream-600" >Sort</span>
+            <span className="text-xs uppercase tracking-widest text-cream-600">Sort</span>
             <div className="flex gap-2 flex-wrap">
               {([
                 { value: 'name_asc', label: 'Name', testid: 'sort-name' },
@@ -156,7 +160,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     key={value}
                     href={`/products?${params.toString()}`}
                     data-testid={testid}
-                    className="px-2 py-1 text-xs tracking-wider uppercase transition-all duration-200"
+                    className="px-2 py-1 text-xs tracking-wider uppercase transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"
                     style={isActive ? {
                       background: 'var(--sage-500)',
                       color: 'var(--cream-100)',
@@ -164,6 +168,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                       border: '1px solid rgba(216,204,175,0.12)',
                       color: 'var(--cream-400)',
                     }}
+                    aria-current={isActive ? true : undefined}
                   >
                     {label}
                   </Link>
@@ -172,15 +177,19 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             </div>
           </div>
 
-          {/* THC Filter */}
-          <div className="flex items-center gap-3">
-            <div
+          {/* THC Filter — accessible group with proper label */}
+          <div
+            className="flex items-center gap-3"
+            role="group"
+            aria-label="Filter by THC level"
+          >
+            <span
               data-testid="filter-thc"
-              className="text-xs uppercase tracking-widest px-3 py-1.5 cursor-pointer border border-cream-300/[0.12]"
-              style={{ color: thc ? 'var(--gold-400)' : 'var(--cream-600)' }}
+              className="text-xs uppercase tracking-widest"
+              style={{ color: (thc || thcRange) ? 'var(--gold-400)' : 'var(--cream-600)' }}
             >
-              THC Filter
-            </div>
+              THC
+            </span>
             <Link
               data-testid="thc-range-high"
               href={(() => {
@@ -191,7 +200,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                 if (sort) p.set('sort', sort)
                 return `/products?${p.toString()}`
               })()}
-              className="px-2 py-1 text-xs tracking-wider uppercase transition-all duration-200"
+              className="px-2 py-1 text-xs tracking-wider uppercase transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"
               style={(thcRange === 'high' || thc === 'high') ? {
                 background: 'var(--gold-400)',
                 color: 'var(--ink-900)',
@@ -199,6 +208,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                 border: '1px solid rgba(216,204,175,0.12)',
                 color: 'var(--cream-400)',
               }}
+              aria-current={(thcRange === 'high' || thc === 'high') ? true : undefined}
             >
               High (20%+)
             </Link>
@@ -212,7 +222,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                 if (sort) p.set('sort', sort)
                 return `/products?${p.toString()}`
               })()}
-              className="px-2 py-1 text-xs tracking-wider uppercase transition-all duration-200"
+              className="px-2 py-1 text-xs tracking-wider uppercase transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"
               style={thcRange === 'medium' ? {
                 background: 'var(--gold-400)',
                 color: 'var(--ink-900)',
@@ -220,27 +230,14 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                 border: '1px solid rgba(216,204,175,0.12)',
                 color: 'var(--cream-400)',
               }}
+              aria-current={thcRange === 'medium' ? true : undefined}
             >
-              Medium (10-20%)
+              Medium (10–20%)
             </Link>
-            <Link
-              data-testid="apply-filters"
-              href={(() => {
-                const p = new URLSearchParams()
-                p.set('thc', 'high')
-                if (category) p.set('category', category)
-                if (search) p.set('search', search)
-                if (sort) p.set('sort', sort)
-                return `/products?${p.toString()}`
-              })()}
-              className="px-3 py-1.5 text-xs tracking-widest uppercase transition-opacity duration-200 hover:opacity-70 bg-primary-500 text-cream-100"
-            >
-              Apply
-            </Link>
-            {thc && (
+            {(thc || thcRange) && (
               <Link
                 href="/products"
-                className="px-2 py-1 text-xs tracking-wider uppercase transition-all duration-200 border border-cream-300/[0.12] text-cream-500"
+                className="px-2 py-1 text-xs tracking-wider uppercase transition-colors duration-200 border border-cream-300/[0.12] text-cream-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"
               >
                 Clear
               </Link>
@@ -255,13 +252,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="animate-pulse space-y-3">
-                <div
-                  className="aspect-[4/5] w-full bg-earth-800"
-
-                />
-                <div className="h-3 w-1/2 rounded bg-earth-700"  />
-                <div className="h-4 w-3/4 rounded bg-earth-700"  />
-                <div className="h-3 w-1/3 rounded bg-earth-700"  />
+                <div className="aspect-[4/5] w-full bg-earth-800" />
+                <div className="h-3 w-1/2 rounded bg-earth-700" />
+                <div className="h-4 w-3/4 rounded bg-earth-700" />
+                <div className="h-3 w-1/3 rounded bg-earth-700" />
               </div>
             ))}
           </div>
@@ -280,14 +274,14 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           />
         </Suspense>
 
-        {search && (
+        {/* Only show "no results" when we actually have zero products for a search */}
+        {hasNoResults && (
           <div className="text-center pt-16">
-            <p className="text-sm text-cream-500" >
+            <p className="text-sm text-cream-500">
               No specimens found for &ldquo;{search}&rdquo;.{' '}
               <Link
                 href="/products"
-                className="transition-opacity duration-200 hover:opacity-70 text-primary-400"
-
+                className="transition-colors duration-200 hover:opacity-70 text-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"
               >
                 View full collection
               </Link>
@@ -328,7 +322,7 @@ export async function generateMetadata({ searchParams }: ProductsPageProps) {
           url: '/images/og-products.jpg',
           width: 1200,
           height: 630,
-          alt: 'NCRemedies Products'
+          alt: 'Carolina Remedies Products',
         }
       ]
     }

@@ -16,6 +16,7 @@
 import { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { ShieldAlert } from 'lucide-react'
+import { lockBodyScroll, unlockBodyScroll } from '@/lib/stores'
 
 interface AgeGateModalProps {
   isOpen: boolean
@@ -28,13 +29,13 @@ interface AgeGateModalProps {
 export function AgeGateModal({ isOpen, isAccessDenied = false, onVerify, onDeny, onReconsider }: AgeGateModalProps) {
   const primaryBtnRef = useRef<HTMLButtonElement>(null)
 
-  // Single body-scroll lock (no conflict with cart drawer)
+  // Shared body-scroll lock (reference-counted — safe with cart drawer)
   useEffect(() => {
     const active = isOpen || isAccessDenied
     if (!active) return
-    document.body.style.overflow = 'hidden'
+    lockBodyScroll()
     return () => {
-      document.body.style.overflow = ''
+      unlockBodyScroll()
     }
   }, [isOpen, isAccessDenied])
 
